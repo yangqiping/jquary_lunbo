@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 600px;
+            height: 320px;
+        }
+        
+        .box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 320px;
+        }
+        
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 320px;
+        }
+        
+        .circle {
+            width: 200px;
+            height: 14px;
+            position: absolute;
+            bottom: 15px;
+            left: 10%;
+            margin-left: -100px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .circle b {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            background-color: #000;
+            border-radius: 50%;
+            margin: 3px;
+        }
+        
+        .circle .current {
+            background-color: #fff;
+        }
+        
+        .btn {
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 25px;
+            margin-top: -25px;
+            /* background-color: rgba(255, 255, 255, .7); */
+            background-color: #444;
+            text-align: center;
+            line-height: 25px;
+            font-size: 15px;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .left {
+            left: 0;
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
+        
+        .right {
+            right: 0;
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <a href="#"><img src="1.jpg" alt=""></a>
+            <a href="#"><img src="2.jpg" alt=""></a>
+            <a href="#"><img src="3.jpg" alt=""></a>
+            <a href="#"><img src="4.jpg" alt=""></a>
+
+        </div>
+        <div class="circle">
+            <b class="current"></b>
+            <b></b>
+            <b></b>
+            <b></b>
+        </div>
+        <div class="btn left">
+            < </div>
+                <div class="btn right">
+                    >
+                </div>
+        </div>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript">
+            var i = 0;
+            var timer;
+            $(function() {
+                $("img").eq(0).show().siblings().hide();
+                start();
+                $("b").hover(function() {
+                    clearInterval(timer);
+                    i = $(this).index();
+                    change();
+                }, function() {
+                    start();
+                });
+                $(".btn").hover(function() {
+                    clearInterval(timer);
+
+                }, function() {
+                    start();
+                });
+                $(".left").click(function() {
+                    i--;
+                    if (i == -1) {
+                        i = 3;
+                    }
+                    change();
+                });
+                $(".right").click(function() {
+                    i++;
+                    if (i == 4) {
+                        i = 0;
+                    }
+                    change();
+                });
+
+
+
+            });
+
+            function start() {
+                timer = setInterval(function() {
+                    i++;
+                    if (i == 4) {
+                        i = 0;
+                    }
+                    change();
+                }, 3000);
+            }
+
+            function change() {
+                $("a").eq(i).fadeIn(300).siblings().stop(true, true).fadeOut(300);
+                $("b").eq(i).addClass("current").siblings().removeClass("current");
+            }
+        </script>
+</body>
+
+</html>
